@@ -14,3 +14,7 @@ Features:
 F - Toggle Gui
 
 Right Mouse - Toggle Aimbot
+
+-----
+
+Thanks to https://xheptcofficial.gitbook.io/kavo-library/ for the Gui, (even though that kinda makes this not fully open-source)
