@@ -35,6 +35,15 @@ ColorSection:NewColorPicker("Esp Color", "", Color3.fromRGB(255,128,128), functi
 end)
 
 
+local function getTeam()
+    -- PF Sometimes changes the team names, if this is depreicated and not working,
+    -- you might be able to fix it by using dark dex to get the team names
+    local localPlayerGhostsTeamName = "Ghosts" -- the actual name of team ghosts
+    local playerFolderGhostsTeamName = "Bright orange" -- the name of the folder phantoms players are in
+    local playerFolderPhantomsTeamName = "Bright blue" -- the name of the folder ghost players are in
+    
+    if game.Players.LocalPlayer.Team.Name == localPlayerGhostsTeamName then return playerFolderPhantomsTeamName else return playerFolderGhostsTeamName end
+end
 
 local smoothing = 1
 local fov = 500
@@ -71,8 +80,7 @@ AimbotSection:NewToggle("Enabled", "", function(state)
             
             FOVringList[#FOVringList+1] = FOVring
             
-            local team
-            if game.Players.LocalPlayer.Team.Name == "Ghosts" then team = "Phantoms" else team = "Ghosts" end
+            local team = getTeam()
             
             local target = Vector2.new(math.huge, math.huge)
             local targetPos
@@ -112,6 +120,8 @@ AimbotSection:NewDropdown("Target Part", "", {"Head", "Torso", "Right Arm", "Lef
 
 
 
+
+
 local saTargetPart = "Head"
 local safov = 500
 local panicMode = false
@@ -140,9 +150,8 @@ saLoop = rs.RenderStepped:Connect(function()
             
     saFovRingList[#saFovRingList+1] = FOVring
     
-    local team
-    if game.Players.LocalPlayer.Team.Name == "Ghosts" then team = "Phantoms" else team = "Ghosts" end
-                
+    local team = getTeam()
+    
     local targetPos
     local last = Vector2.new(math.huge, math.huge)
     if game.Workspace.Players:FindFirstChild(team) then
@@ -197,6 +206,9 @@ SASection:NewSlider("Panic Distance", "", 40, 5, function(s) panicDistance = s e
 
 
 
+
+
+
 local LineList = {}
 local width = 3
 local height = 5
@@ -211,9 +223,8 @@ EspSection:NewToggle("Enabled", "", function(state)
                 end
             end
             
-            local team
-            if game.Players.LocalPlayer.Team.Name == "Ghosts" then team = "Phantoms" else team = "Ghosts" end
-            
+            local team = getTeam()
+
             LineList = {}
             if game.Workspace.Players:FindFirstChild(team) then
                 for i,v in pairs(game.Workspace.Players:FindFirstChild(team):GetChildren()) do
@@ -254,6 +265,16 @@ EspSection:NewToggle("Enabled", "", function(state)
         LineList = {}
     end
 end)
+
+
+
+
+
+
+
+
+
+
 
 
 
